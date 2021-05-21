@@ -7,7 +7,6 @@ class MyComponent extends React.Component {
   render () {
     return (
       <div>
-        <h2>Hello React Project</h2>
         <App />
       </div>
     );
