@@ -14,6 +14,22 @@ Once the codebase is there, simply load the Database onto the database container
 
 You can run apc_clear_cache() and apcu_clear_cache() if you ever switch to composer and move modules from modules/... to modules/contrib/... 
 
+## React and WebpackWatch
+docker exec -u 0 -it drupal_php bash -c "npm i -g webpack-cli && webpack-cli watch"
+
+## SSL Set-Up
+To enable SSL, map port 443 to NGINX on docker-compose:
+    ports:
+    - '443:443'
+
+Then install and run the LetsEncrypt certbot:
+docker exec -u 0 -it drupal_nginx bash -c "apk add certbot certbot-nginx"
+docker exec -u 0 -it drupal_nginx bash -c "certbot"
+
+Add a cronjob to renew certs:
+# SSL RENEWALS EVERY 6th of Feb,Apr,Jun,Aug,Oct,Dec at 1:35 AM
+35      1       6       2,4,6,8,10,12   *       /usr/bin/certbot renew --quiet
+
 
 ## Introduction
 
